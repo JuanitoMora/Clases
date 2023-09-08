@@ -1,6 +1,6 @@
 ///<reference types="cypress" />
 
-import { LoginPage } from '../../support/pages/loginPage';
+import { LoginPage } from '../../support/pages/loginPage'; 
 import { HomePage } from '../../support/pages/homePage';
 import { ToDoListPage } from '../../support/pages/toDoListPage';
 
@@ -25,13 +25,9 @@ describe('Page object model', () => {
         homePage.clickToDoListButton();
     })
 
-    it('Ingresar 2 tareas', () => {
-        toDoListPage.escribirTarea(data.tarea1);
-        toDoListPage.clickSendtask();
-        toDoListPage.escribirTarea(data.tarea2);
-        toDoListPage.clickSendtask();
-        toDoListPage.obtenerTarea(data.tarea2).should('exist')
-        toDoListPage.clickDeleteButton(data.tarea2);
-        toDoListPage.obtenerTarea(data.tarea2).should('not.exist')
+
+    it('Tomar foto al todo list page', () => {
+        cy.screenshot()
+        cy.get(toDoListPage.tareaInput).screenshot()
     });
 });

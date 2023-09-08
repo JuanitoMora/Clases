@@ -1,7 +1,11 @@
 export class ToDoListPage {
     constructor() {
         this.tareaInput = 'input[name="task"]';
-        this.sendTaskButton = '#sendTask'
+        this.sendTaskButton = '#sendTask';
+        this.seeAllButton = '#all';
+        this.seeCompletedButton = '#completed';
+        this.seeActiveButton = '#active';
+        this.seeRemoveAllButton = '#removeAll';
     };
 
     escribirTarea(tarea) {
