@@ -20,7 +20,7 @@ describe('API', () => {
 
     it("Validar peticion GET 3", () => {
         cy.request({
-            url: "http://localhost:3000/post",
+            url: "http://localhost:3000/post", //se le puede agregar el path (posts?author=Fabrizio%20Otranto)
             method: "GET"
         })
             .then(respuesta => {
@@ -29,11 +29,29 @@ describe('API', () => {
             })
     })
 
+    it("Validar peticion POST", () => {
+        const id = Math.floor(Math.random() * 1000)
+        cy.request({
+            url: "http://localhost:3000/post",
+            method: "POST",
+            body: {
+                "id": id,
+                "title": "prueba",
+                "author": "Fabrizio Otranto"
+            }
+        })
+            .then(respuesta => {
+                expect(respuesta.status).to.be.equal(201)
+                expect(respuesta.body.title).to.be.equal('prueba')
+                expect(respuesta.body.author).to.be.equal('Fabrizio Otranto')
+            })
+    })
+
     it("Validar peticion GET + DELETE + POST", () => {
         const id = 102
 
         cy.request({
-            url: `http://localhost:3000/posts?author=Fabrizio%20Otranto`,
+            url: `http://localhost:3000/posts?author=Fabrizio%20Otranto`, //posts?id=${id}
             method: "GET",
         }).its('body').each(body => {
             cy.request({
@@ -60,7 +78,7 @@ describe('API', () => {
         })
     })
 
-    it("PUT", () => {
+    it("PUT", () => { //PUT se edita todo el documento y con PATCH se edita uno de los valores
         cy.request({
             url: "http://localhost:3000/posts/2",
             method: "PUT",
@@ -77,7 +95,7 @@ describe('API', () => {
         })
     })
 
-    it("Ingresar al sistema de PushingIT", () => {
+    it.only("Ingresar al sistema de PushingIT", () => {
         cy.request({
             url: "https://pushing-it.onrender.com/api/login",
             method: "POST",
